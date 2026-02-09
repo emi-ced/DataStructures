@@ -2,9 +2,9 @@
 {
     public class SinglyLinkedListNode
     {
-        public int Value { get; set; }
-        public SinglyLinkedListNode Next { get; set; }
-
+        public int Value;
+        public SinglyLinkedListNode Next;
+    
         public SinglyLinkedListNode(int value)
         {
             Value = value;
@@ -13,26 +13,30 @@
 
     public class SinglyLinkedList
     {
-        SinglyLinkedListNode _headNode;
-        SinglyLinkedListNode _tailNode;
-        int _nodeCount;
+        private SinglyLinkedListNode _headNode;
+        private SinglyLinkedListNode _tailNode;
+        private int _count = 0;
     
-        public SinglyLinkedList() {}
+        public LinkedList()
+        {}
     
         public int Get(int index)
         {
-            if (index >= _nodeCount)
+            if (index >= _count)
                 return -1;
     
-            var currentNode = _headNode;
+            SinglyLinkedListNode node = _headNode;
+            
+            while (index > 0)
+            {
+                node = node.Next;
+                index--;
+            }
     
-            for (int i = 0; i < index; i++)
-                currentNode = currentNode.Next;
-    
-            return currentNode.Value;
+            return node.Value;
         }
     
-        public void InsertHead(int val)
+        public void InsertHead(int val) 
         {
             var newNode = new SinglyLinkedListNode(val);
     
@@ -47,7 +51,7 @@
                 _headNode = newNode;
             }
     
-            _nodeCount++;
+            _count++;
         }
     
         public void InsertTail(int val)
@@ -65,79 +69,60 @@
                 _tailNode = newNode;
             }
     
-            _nodeCount++;
+            _count++;
         }
-
-        public void AddAtIndex(int index, int val)
+    
+        public bool Remove(int index)
         {
-            if (index > _nodeCount)
-                return;
-            else if (index == 0)
-                AddAtHead(val);
-            else if (index == _nodeCount)
-                AddAtTail(val);
-            else
-            {
-                var previousNode = _headNode;
-    
-                for (int i = 0; i < index - 1; i++)
-                    previousNode = previousNode.Next;
-    
-                var nextNode = previousNode.Next;
-    
-                var newNode = new Node(val);
-                
-                previousNode.Next = newNode;
-                newNode.Next = nextNode;
-    
-                _nodeCount++;
-            }
-        }
-        
-        public bool RemoveAtIndex(int index)
-        {
-            if (index >= _nodeCount)
+            if (index >= _count)
                 return false;
     
             if (index == 0)
             {
                 _headNode = _headNode.Next;
-    
-                if (_headNode == null)
-                    _tailNode = null;
-            }   
-            else if (index == _nodeCount - 1)
-            {
-                var previousNode = _headNode;
-                for (int i = 0; i < _nodeCount - 2; i++)
-                    previousNode = previousNode.Next;
-    
-                _tailNode = previousNode;
-                _tailNode.Next = null;
             }
             else
             {
-                var previousNode = _headNode;
-                for (int i = 0; i < index - 1; i++)
-                    previousNode = previousNode.Next;
+                var node = _headNode;
     
-                previousNode.Next = previousNode.Next?.Next;
+                while (index > 1)
+                {
+                    node = node.Next;
+                    index--;
+                }
+    
+                node.Next = node.Next.Next;
+    
+                if (index == (_count - 1))
+                    _tailNode =  node;
             }
     
-            _nodeCount--;
-            
+            _count--;
+    
+            if (_count == 0)
+            {
+                _headNode = null;
+                _tailNode = null;
+            }
+            else if (_count == 1)
+            {
+                _headNode = _headNode ?? _tailNode;
+                _tailNode = _tailNode ?? _headNode;
+            }
+    
             return true;
         }
     
         public List<int> GetValues()
         {
             List<int> values = new();
-            var currentNode = _headNode;
     
-            while (currentNode != null)
+            SinglyLinkedListNode node = _headNode;
+    
+            while (node != null)
             {
-                values.Add(currentNode.Value);
-                currentNode = currentNode.Next;
+                values.Add(node.Value);
+                node = node.Next;
             }
     
             return values;
