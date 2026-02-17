@@ -1,6 +1,7 @@
 ﻿namespace DataStructures
 {
   #region Graph with Node 
+  
   public class Node
   {
       public int Index;
@@ -143,5 +144,6 @@
           return false;
       }
   }
+   
   #endregion
 }
