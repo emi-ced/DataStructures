@@ -1,6 +1,5 @@
 ﻿namespace DataStructures
 {
-
   #region Graph with Node 
   public class Node
   {
