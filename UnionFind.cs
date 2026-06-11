@@ -68,7 +68,7 @@
                 parents[parentNodeY] = parentNodeX;
             }
             // Y head node has higher rank.
-            if (ranks[parentNodeY] > ranks[parentNodeX])
+            else if (ranks[parentNodeY] > ranks[parentNodeX])
             {
                 parents[parentNodeX] = parentNodeY;
             }
