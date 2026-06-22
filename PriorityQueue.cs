@@ -48,6 +48,7 @@
             // Swim down.
             while ((currentIndex * 2) < _minHeap.Count)
             {
+                // While swimming down, we have to swap the smaller one of the children.
                 if ((currentIndex * 2) + 1 < _minHeap.Count &&
                     _minHeap[(currentIndex * 2) + 1] < _minHeap[currentIndex * 2] &&
                     _minHeap[(currentIndex * 2) + 1] < _minHeap[currentIndex])
@@ -82,7 +83,9 @@
         {
             var minHeap = new List<int>() { 0 };
             minHeap.AddRange(nums);
-            
+
+            // In order for the algorithm to work, sub-trees have to be valid.
+            // Leaf nodes are valid, so we start from the half-mark of the list.
             for (int i = minHeap.Count / 2; i > 0; i--)
             {
                 var currentIndex = i;
