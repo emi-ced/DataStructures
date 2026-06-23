@@ -34,7 +34,7 @@
             // Iterate until the node is its own parent.
             while (parents[parentNode] != parentNode)
             {
-                // Set parent node for current node using its parent parent's node.
+                // Set parent node for current node using its parent parent's node (grand-parent node).
                 // We basically skip the current parent node and go one rank heigher.
                 // This works because of rule to set the node itself as parent once we reach the peak.
                 parents[parentNode] = parents[parents[parentNode]];
