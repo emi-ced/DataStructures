@@ -1,154 +1,25 @@
 ﻿namespace DataStructures
 {
-    public class QueueNode
-    {
-        public int Value;
-        public QueueNode Next;
-
-        public QueueNode(int val)
-        {
-            this.Value = val;
-            this.Next = null;
-        }
-    }
-     
-    // Time complexity:
-    // Enqueue: O(1)
-    // Dequeue: O(1)
-     
-    public class QueueWithPointers
-    {
-        public QueueNode Left;  // front of Queue   front -> [1,2,3]
-        public QueueNode Right; // back of Queue   [1,2,3] <- back
-
-        public QueueWithPointers()
-        {
-            this.Left = null;
-            this.Right = null;
-        }
-
-        public void EnQueue(int val)
-        {
-            QueueNode newNode = new QueueNode(val);
-
-            if (this.Right != null)
-            {
-                // Queue is not empty 
-                this.Right.Next = newNode;
-                this.Right = this.Right.Next;
-            }
-            else
-            {
-                // Queue is empty             
-                this.Left = newNode;
-                this.Right = newNode;
-            }
-        }
-
-        public int DeQueue()
-        {
-            if (this.Left == null)
-            {
-                // Queue is empty 
-                return -1;
-            }
-
-            int val = this.Left.Value;
-            this.Left = this.Left.Next;
-
-            if (this.Left == null)
-                this.Right = null;
-
-            return val;
-        }
-
-        public void Print()
-        {
-            QueueNode cur = this.Left;
-
-            while (cur != null)
-            {
-                Console.WriteLine(cur.Value + " -> ");
-                cur = cur.Next;
-            }
-
-            Console.WriteLine("");
-        }
-    }
-
-     
-
-    public class QueueWithList<T>
-    {
-        private List<T> items = new();
-
-        public int Count()
-        {
-            return items.Count;
-        }
-
-        public bool IsEmpty()
-        {
-            return Count() == 0;
-        }
-
-        public T Peek()
-        {
-            if (IsEmpty())
-                throw new InvalidOperationException();
-
-            return items[0];
-        }
-
-        public T Dequeue()
-        {
-            if (IsEmpty())
-                throw new InvalidOperationException();
-
-            var value = items[0];
-            items.RemoveAt(0);
-            return value;
-        }
-
-        public void Enqueue(T item)
-        {
-            items.Add(item);
-        }
-    }
-
-     
-
-    public class DequeNode
-    {
-        public DequeNode Previous { get; set; }
-        public DequeNode Next { get; set; }
-    
-        public int Value { get; set; }
-    
-        public DequeNode(int value)
-        {
-            Value = value;
-        }
-    }     
-
-    // Queue with doubly-linked nodes (Previous and Next).
-    // TC: O(1)
     public class Deque
     {
-        private DequeNode _headNode;
-        private DequeNode _tailNode;
+        Node _headNode;
+        Node _tailNode;
     
-        private int _nodeCount;
+        int _count = 0;
     
-        public Deque() {}
+        public Deque()
+        {}
     
-        public bool IsEmpty() => _nodeCount == 0;
+        public bool IsEmpty()
+        {
+            return _count == 0;
+        }
     
         public void Append(int value)
         {
-            var newNode = new DequeNode(value);
+            var newNode = new Node(value);
     
-            if (_headNode == null && _tailNode == null)
+            if (_count == 0)
             {
                 _headNode = newNode;
                 _tailNode = newNode;
@@ -161,14 +32,14 @@
                 _tailNode = newNode;
             }
     
-            _nodeCount++;
+            _count++;
         }
     
-        public void Appendleft(int value)
+        public void AppendLeft(int value)
         {
-            var newNode = new DequeNode(value);
+            var newNode = new Node(value);
     
-            if (_headNode == null && _tailNode == null)
+            if (_count == 0)
             {
                 _headNode = newNode;
                 _tailNode = newNode;
@@ -181,17 +52,17 @@
                 _headNode = newNode;
             }
     
-            _nodeCount++;
+            _count++;
         }
     
         public int Pop()
         {
-            if (_nodeCount == 0)
+            if (_count == 0)
                 return -1;
             
             var value = _tailNode.Value;
             
-            if (_nodeCount == 1)
+            if (_count == 1)
             {
                 _headNode = null;
                 _tailNode = null;
@@ -202,18 +73,18 @@
                 _tailNode.Next = null;
             }
     
-            _nodeCount--;
+            _count--;
             return value;
         }
     
-        public int Popleft()
+        public int PopLeft()
         {
-            if (_nodeCount == 0)
+            if (_count == 0)
                 return -1;
     
             var value = _headNode.Value;
     
-            if (_nodeCount == 1)
+            if (_count == 1)
             {
                 _headNode = null;
                 _tailNode = null;
@@ -224,8 +95,22 @@
                 _headNode.Previous = null;
             }
     
-            _nodeCount--;
+            _count--;
             return value;
         }
     }
+    
+    public class Node
+    {
+        public Node Previous;
+        public Node Next;
+    
+        public int Value;
+    
+        public Node(int value)
+        {
+            Value = value;
+        }
+    }
+
 }
