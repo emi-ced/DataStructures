@@ -1,5 +1,7 @@
 ﻿namespace DataStructures
 {
+    // Queue with doubly-linked nodes.
+    // TC: O(1)
     public class Deque
     {
         Node _headNode;
