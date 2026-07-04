@@ -77,39 +77,34 @@
             if (index >= _count)
                 return false;
     
-            if (index == 0)
-            {
-                _headNode = _headNode.Next;
-            }
-            else
-            {
-                var node = _headNode;
-    
-                while (index > 1)
-                {
-                    node = node.Next;
-                    index--;
-                }
-    
-                node.Next = node.Next.Next;
-    
-                if (index == (_count - 1))
-                    _tailNode =  node;
-            }
-    
-            _count--;
-    
-            if (_count == 0)
+            if (_count == 1)
             {
                 _headNode = null;
                 _tailNode = null;
             }
-            else if (_count == 1)
+            else if (index == 0)
             {
-                _headNode = _headNode ?? _tailNode;
-                _tailNode = _tailNode ?? _headNode;
+                _headNode = _headNode.Next;
+            }
+            else if (index == _count - 1)
+            {
+                var currentNode = _headNode;
+                for (int i = 0; i < index; i++)
+                    currentNode = currentNode.Next;
+    
+                currentNode.Next = null;
+                _tailNode = currentNode;
+            }
+            else
+            {
+                var currentNode = _headNode;
+                for (int i = 0; i < index - 1; i++)
+                    currentNode = currentNode.Next;
+    
+                currentNode.Next = currentNode.Next.Next;
             }
     
+            _count--;
             return true;
         }
     
