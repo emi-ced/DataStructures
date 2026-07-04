@@ -1,5 +1,17 @@
 ﻿namespace DataStructures
 {
+    public class QueueNode
+    {
+        public int Value;
+        public QueueNode Next;
+
+        public QueueNode(int val)
+        {
+            this.Value = val;
+            this.Next = null;
+        }
+    }
+     
     // Time complexity:
     // Enqueue: O(1)
     // Dequeue: O(1)
@@ -64,6 +76,8 @@
         }
     }
 
+     
+
     public class QueueWithList<T>
     {
         private List<T> items = new();
@@ -102,17 +116,20 @@
         }
     }
 
-    public class QueueNode
-    {
-        public int Value;
-        public QueueNode Next;
+     
 
-        public QueueNode(int val)
+    public class DequeNode
+    {
+        public DequeNode Previous { get; set; }
+        public DequeNode Next { get; set; }
+    
+        public int Value { get; set; }
+    
+        public DequeNode(int value)
         {
-            this.Value = val;
-            this.Next = null;
+            Value = value;
         }
-    }
+    }     
 
     // Queue with doubly-linked nodes (Previous and Next).
     public class Deque
@@ -201,19 +218,6 @@
                 _headNode.Previous = null;
             
             return value;
-        }
-    }
-    
-    public class DequeNode
-    {
-        public DequeNode Previous { get; set; }
-        public DequeNode Next { get; set; }
-    
-        public int Value { get; set; }
-    
-        public DequeNode(int value)
-        {
-            Value = value;
         }
     }
 }
