@@ -132,6 +132,7 @@
     }     
 
     // Queue with doubly-linked nodes (Previous and Next).
+    // TC: O(1)
     public class Deque
     {
         private DequeNode _headNode;
@@ -185,38 +186,45 @@
     
         public int Pop()
         {
-            if (_tailNode == null)
+            if (_nodeCount == 0)
                 return -1;
+            
+            var value = _tailNode.Value;
+            
+            if (_nodeCount == 1)
+            {
+                _headNode = null;
+                _tailNode = null;
+            }
+            else
+            {
+                _tailNode = _tailNode.Previous;
+                _tailNode.Next = null;
+            }
     
             _nodeCount--;
-            var value = _tailNode.Value;
-    
-            _tailNode = _tailNode.Previous;
-    
-            if (_tailNode == null)
-                _headNode = null;
-            else
-                _tailNode.Next = null;
-            
             return value;
         }
     
         public int Popleft()
         {
-            if (_headNode == null)
+            if (_nodeCount == 0)
                 return -1;
-    
-            _nodeCount--;
     
             var value = _headNode.Value;
     
-            _headNode = _headNode.Next;
-    
-            if (_headNode == null)
+            if (_nodeCount == 1)
+            {
+                _headNode = null;
                 _tailNode = null;
+            }
             else
+            {
+                _headNode = _headNode.Next;
                 _headNode.Previous = null;
-            
+            }
+    
+            _nodeCount--;
             return value;
         }
     }
