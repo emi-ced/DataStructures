@@ -32,13 +32,6 @@
             if (_minHeap.Count <= 1)
                 return -1;
 
-            if (_minHeap.Count == 2)
-            {
-                var lastRemainingValue = _minHeap[1];
-                _minHeap.RemoveAt(1);
-                return lastRemainingValue;
-            }
-
             var rootValue = _minHeap[1];
             _minHeap[1] = _minHeap[_minHeap.Count - 1];
             _minHeap.RemoveAt(_minHeap.Count - 1);
