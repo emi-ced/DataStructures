@@ -77,8 +77,10 @@
             var minHeap = new List<int>() { 0 };
             minHeap.AddRange(nums);
 
-            // In order for the algorithm to work, sub-trees have to be valid.
-            // Leaf nodes are valid, so we start from the half-mark of the list.
+            // In order for the algorithm to work, sub-trees have to be valid
+            // therefore we start from the middle of the list and work our way upwards.
+            // Since Leaf nodes take up the last half of the array, 
+            // it is still possible for s leaf node to be switched with their parent.
             for (int i = minHeap.Count / 2; i > 0; i--)
             {
                 var currentIndex = i;
