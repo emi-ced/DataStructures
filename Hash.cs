@@ -394,7 +394,7 @@
             // Iterate through the old hash map.
             foreach (NodeMapSeperateChaining node in oldHashMap)
             {
-                if (node == null)
+                if (node == null || node.Key == -1)
                     continue;
 
                 Insert(node.Key, node.Value);
