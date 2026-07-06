@@ -32,8 +32,16 @@ namespace DataStructures
 
         private BinarySearchTreeNode InsertInternal(BinarySearchTreeNode node, int key, int value)
         {
-            if (node == null || node.Key == key)
+            // Insert new Node.
+            if (node == null)
                 return new BinarySearchTreeNode(key, value);
+
+            // Update existing Node.
+            if (node.Key == key)
+            {
+                node.Value = value;
+                return node;
+            }
 
             if (key > node.Key)
                 node.Right = InsertInternal(node.Right, key, value);
