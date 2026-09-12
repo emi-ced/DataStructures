@@ -209,7 +209,6 @@ namespace DataStructures
         // Space complexity: O(log n)        
         public int Query(int L, int R)
         {
-            Console.WriteLine("Start " + L + " " + R);
             return QueryInternal(L, R, _segmentNodeRoot);
         }
 
