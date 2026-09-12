@@ -72,4 +72,67 @@
             return true;
         }
     }
+
+     
+     
+    public class TrieArrayNode
+    {
+        public bool IsEndOfWord;
+        public TrieArrayNode[] Relations = new TrieArrayNode[26];
+    }  
+     
+    public class TrieArray
+    {
+        TrieArrayNode _rootNode;
+    
+        public TrieArray()
+        {
+            _rootNode = new TrieArrayNode();
+        }
+        
+        public void Insert(string word)
+        {
+            var currentNode = _rootNode;
+    
+            foreach (var character in word)
+            {
+                if (currentNode.Relations[character - 'a'] == null)
+                    currentNode.Relations[character - 'a'] = new TrieArrayNode();
+    
+                currentNode = currentNode.Relations[character - 'a'];
+            }
+    
+            currentNode.IsEndOfWord = true;
+        }
+        
+        public bool Search(string word)
+        {
+            var currentNode = _rootNode;
+    
+            foreach (var character in word)
+            {
+                if (currentNode.Relations[character - 'a'] == null)
+                    return false;
+    
+                currentNode = currentNode.Relations[character - 'a'];
+            }
+    
+            return currentNode.IsEndOfWord;
+        }
+        
+        public bool StartsWith(string prefix)
+        {
+            var currentNode = _rootNode;
+    
+            foreach (var character in prefix)
+            {
+                if (currentNode.Relations[character - 'a'] == null)
+                    return false;
+    
+                currentNode = currentNode.Relations[character - 'a'];
+            }
+    
+            return true;
+        }
+    }   
 }
